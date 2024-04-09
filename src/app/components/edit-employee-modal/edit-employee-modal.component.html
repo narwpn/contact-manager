@@ -1,0 +1,74 @@
+<div class="modal-header">
+  <h4 class="modal-title">Edit Employee</h4>
+</div>
+<div class="modal-body">
+  <form [formGroup]="editEmployeeForm">
+    <div class="mb-3">
+      <label for="id" class="form-label">ID</label>
+      <input
+        type="text"
+        class="form-control"
+        id="id"
+        formControlName="id"
+        placeholder="-1"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        formControlName="name"
+        placeholder="John Doe"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        formControlName="email"
+        placeholder="john.doe@email.com"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone</label>
+      <input
+        type="text"
+        class="form-control"
+        id="phone"
+        formControlName="phone"
+        placeholder="0123456789"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="jobTitle" class="form-label">Job Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="jobTitle"
+        formControlName="jobTitle"
+        placeholder="Software Engineer"
+      />
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-outline-dark"
+    (click)="activeModal.dismiss('Cancel click')"
+  >
+    Cancel
+  </button>
+  <button
+    type="button"
+    class="btn btn-dark"
+    (click)="activeModal.close('Save click')"
+    [disabled]="!editEmployeeForm.valid"
+  >
+    Save
+  </button>
+</div>
