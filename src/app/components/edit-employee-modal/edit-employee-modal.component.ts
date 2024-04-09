@@ -11,6 +11,8 @@ import { Employee } from '../../models/employee';
 export class EditEmployeeModalComponent {
   activeModal = inject(NgbActiveModal);
 
+  id: number = -1;
+
   editEmployeeForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -22,7 +24,7 @@ export class EditEmployeeModalComponent {
   });
 
   set employee(employee: Employee) {
-    this.employee = employee;
+    this.id = employee.id;
     this.editEmployeeForm.setValue({
       name: employee.name,
       email: employee.email,
@@ -33,7 +35,7 @@ export class EditEmployeeModalComponent {
 
   get employee(): Employee {
     return {
-      id: this.employee.id,
+      id: this.id,
       name: this.editEmployeeForm.value.name,
       email: this.editEmployeeForm.value.email,
       phone: this.editEmployeeForm.value.phone,
@@ -42,13 +44,7 @@ export class EditEmployeeModalComponent {
   }
 
   reset(): void {
-    this.employee = {
-      id: -1,
-      name: '',
-      email: '',
-      phone: '',
-      jobTitle: '',
-    };
+    this.id = -1;
     this.editEmployeeForm.reset();
   }
 }
