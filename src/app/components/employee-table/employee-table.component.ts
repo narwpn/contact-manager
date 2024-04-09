@@ -11,28 +11,28 @@ import { EditEmployeeModalComponent } from '../edit-employee-modal/edit-employee
   styleUrl: './employee-table.component.css',
 })
 export class EmployeeTableComponent implements OnInit {
-  employeeService = inject(EmployeeService);
-  modalService = inject(NgbModal);
+  private employeeService = inject(EmployeeService);
+  private modalService = inject(NgbModal);
 
-  employees: Employee[] = [];
+  protected employees: Employee[] = [];
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.getEmployees();
   }
 
-  getEmployees(): void {
+  private getEmployees(): void {
     this.employeeService
       .getEmployees()
       .subscribe((employees) => (this.employees = employees));
   }
 
-  addEmployee(employee: Omit<Employee, 'id'>): void {
+  private addEmployee(employee: Omit<Employee, 'id'>): void {
     this.employeeService
       .addEmployee(employee)
       .subscribe((employee) => this.employees.push(employee));
   }
 
-  deleteEmployee(id: number): void {
+  protected deleteEmployee(id: number): void {
     this.employeeService
       .deleteEmployee(id)
       .subscribe(
@@ -40,7 +40,7 @@ export class EmployeeTableComponent implements OnInit {
       );
   }
 
-  updateEmployee(employee: Employee): void {
+  private updateEmployee(employee: Employee): void {
     this.employeeService
       .updateEmployee(employee)
       .subscribe(
@@ -51,7 +51,7 @@ export class EmployeeTableComponent implements OnInit {
       );
   }
 
-  openAddEmployeeModal(): void {
+  protected openAddEmployeeModal(): void {
     const modalRef = this.modalService.open(AddEmployeeModalComponent);
     modalRef.closed.subscribe(() => {
       this.addEmployee(modalRef.componentInstance.employee);
@@ -59,7 +59,7 @@ export class EmployeeTableComponent implements OnInit {
     });
   }
 
-  openEditEmployeeModal(employee: Employee): void {
+  protected openEditEmployeeModal(employee: Employee): void {
     const modalRef = this.modalService.open(EditEmployeeModalComponent);
     modalRef.componentInstance.employee = employee;
     modalRef.closed.subscribe(() => {

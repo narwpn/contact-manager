@@ -7,39 +7,39 @@ import { Employee } from '../models/employee';
   providedIn: 'root',
 })
 export class EmployeeService {
-  http = inject(HttpClient);
+  private http = inject(HttpClient);
 
-  employeesUrl = 'api/employees';
-  httpOptions = {
+  private employeesUrl = 'api/employees';
+  private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  getEmployees(): Observable<Employee[]> {
+  public getEmployees(): Observable<Employee[]> {
     return this.http
       .get<Employee[]>(this.employeesUrl)
       .pipe(catchError(this.errorHandler<Employee[]>('getEmployees', [])));
   }
 
-  getEmployee(id: number): Observable<Employee> {
+  public getEmployee(id: number): Observable<Employee> {
     const url = `${this.employeesUrl}/${id}`;
     return this.http
       .get<Employee>(url)
       .pipe(catchError(this.errorHandler<Employee>('getEmployee')));
   }
 
-  updateEmployee(employee: Employee): Observable<any> {
+  public updateEmployee(employee: Employee): Observable<any> {
     return this.http
       .put(this.employeesUrl, employee, this.httpOptions)
       .pipe(catchError(this.errorHandler<any>('updateEmployee')));
   }
 
-  addEmployee(employee: Omit<Employee, 'id'>): Observable<Employee> {
+  public addEmployee(employee: Omit<Employee, 'id'>): Observable<Employee> {
     return this.http
       .post<Employee>(this.employeesUrl, employee, this.httpOptions)
       .pipe(catchError(this.errorHandler<Employee>('addEmployee')));
   }
 
-  deleteEmployee(id: number): Observable<Employee> {
+  public deleteEmployee(id: number): Observable<Employee> {
     const url = `${this.employeesUrl}/${id}`;
 
     return this.http
@@ -47,7 +47,7 @@ export class EmployeeService {
       .pipe(catchError(this.errorHandler<Employee>('deleteEmployee')));
   }
 
-  errorHandler<T>(operation = 'operation', result?: T) {
+  private errorHandler<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
       console.log(`${operation} failed: ${error.message}`);

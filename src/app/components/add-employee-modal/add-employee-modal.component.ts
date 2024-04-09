@@ -9,9 +9,9 @@ import { Employee } from '../../models/employee';
   styleUrl: './add-employee-modal.component.css',
 })
 export class AddEmployeeModalComponent {
-  activeModal = inject(NgbActiveModal);
+  protected activeModal = inject(NgbActiveModal);
 
-  addEmployeeForm = new FormGroup({
+  protected addEmployeeForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     phone: new FormControl('', [
@@ -21,11 +21,11 @@ export class AddEmployeeModalComponent {
     jobTitle: new FormControl('', [Validators.required]),
   });
 
-  get employee(): Omit<Employee, 'id'> {
+  public get employee(): Omit<Employee, 'id'> {
     return this.addEmployeeForm.value as Omit<Employee, 'id'>;
   }
 
-  reset(): void {
+  public reset(): void {
     this.addEmployeeForm.reset();
   }
 }

@@ -9,11 +9,11 @@ import { Employee } from '../../models/employee';
   styleUrl: './edit-employee-modal.component.css',
 })
 export class EditEmployeeModalComponent {
-  activeModal = inject(NgbActiveModal);
+  protected activeModal = inject(NgbActiveModal);
 
-  id: number = -1;
+  protected id: number = -1;
 
-  editEmployeeForm = new FormGroup({
+  protected editEmployeeForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     phone: new FormControl('', [
@@ -23,7 +23,7 @@ export class EditEmployeeModalComponent {
     jobTitle: new FormControl('', [Validators.required]),
   });
 
-  set employee(employee: Employee) {
+  public set employee(employee: Employee) {
     this.id = employee.id;
     this.editEmployeeForm.setValue({
       name: employee.name,
@@ -33,7 +33,7 @@ export class EditEmployeeModalComponent {
     });
   }
 
-  get employee(): Employee {
+  public get employee(): Employee {
     return {
       id: this.id,
       name: this.editEmployeeForm.value.name,
@@ -43,7 +43,7 @@ export class EditEmployeeModalComponent {
     } as Employee;
   }
 
-  reset(): void {
+  public reset(): void {
     this.id = -1;
     this.editEmployeeForm.reset();
   }
